@@ -1,0 +1,226 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>
+    Firebase Test
+    </title>
+    </head>
+    <style>
+    .alright
+    {
+        text-align: left;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .button {
+	    background-color: #4CAF50;
+	    border: none;
+	    color: white;
+	    padding: 15px 32px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+}
+    </style>
+    <body>
+
+
+<input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()">
+
+<table class="alright">
+<tr>
+<th><h1>Niyant</h1></th>
+<th><h1>Varun</h1></th>
+</tr>
+
+<!--<tr>
+<th><h1 id="niyantscoretag"></h1></th>
+<th><h1 id="varunscoretag"></h1></th>
+</tr>-->
+<tr>
+<td><h2 id="ns">0</td>
+<td><h2 id="vs">0</td>
+</tr>
+<tr>
+<td><h3 id="nrank">0</td>
+<td><h3 id="vrank">0</td>
+</tr>
+<tr>
+<td><img id="imgtag1"/></td>
+<td><img id="imgtag2"/></td>
+</tr>
+<tr>
+<td><h2>Winner is</h2></td>
+<td><img id="imgtag3"/></td>
+</tr>
+</table>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+
+      var config = {
+        apiKey: "AIzaSyAXpEHm1uLfRLS-6QCun1iVioquEmpmbAI",
+        authDomain: "helloworld-3c2e7.firebaseapp.com",
+        databaseURL: "https://helloworld-3c2e7.firebaseio.com",
+        projectId: "helloworld-3c2e7",
+        storageBucket: "helloworld-3c2e7.appspot.com",
+        messagingSenderId: "103101977379"
+      };
+      firebase.initializeApp(config);
+
+      var otherAppConfig = {
+
+    apiKey: "AIzaSyC3UBiLaBJoW0vfY5xJgtFWV_zdKl9vfWo",
+    authDomain: "scoringdev-b5ede.firebaseapp.com",
+    databaseURL: "https://scoringdev-b5ede.firebaseio.com",
+    projectId: "scoringdev-b5ede",
+    storageBucket: "scoringdev-b5ede.appspot.com",
+    messagingSenderId: "123331117443"
+
+};
+
+var database1 = firebase.initializeApp(config,"primary");
+var database1_database = database1.database();
+
+var database2 = firebase.initializeApp(otherAppConfig, "secondary");
+var database2_database = database2.database();
+
+//database2_database.ref('Niyant').set({Score: 10991});
+
+var nscoref = database2_database.ref('Niyant/Score');
+var vscoref = database2_database.ref('Varun/Score');
+var vscore,nscore,vscoreincremented,nscoreincremented;
+
+/*
+
+nscoref.on('value',
+                function(snapshot){
+
+                                        //console.log(snapshot.val());
+
+                                        //document.getElementById("niyantscoretag").innerHTML = snapshot.val();
+                                        nscore = snapshot.val();
+                                        nscoreincremented = nscore + 1;
+                                        console.log("nscore = "+nscore);
+                                        console.log("nscoreincremented = "+nscoreincremented);
+
+                                   }
+        );
+
+vscoref.on('value',
+                function(snapshot){
+
+
+                                        //document.getElementById("varunscoretag").innerHTML = snapshot.val();
+                                        vscore = snapshot.val();
+                                        vscoreincremented = vscore + 1;
+                                        console.log("vscore = "+vscore);
+                                        console.log("vscoreincremented = "+vscoreincremented);
+
+                                   }
+        );
+
+*/
+
+
+var URLPath1,URLPath2,nsv,vsv;
+
+
+var num1 = Math.floor(Math.random() * 100) + 1;
+var num2 = Math.floor(Math.random() * 100) + 1;
+
+if(num1 < num2)
+{
+    //database2_database.ref('Niyant').set({Score: nscoreincremented});
+}
+else if(num1 > num2)
+{
+    //database2_database.ref('Varun').set({Score: vscoreincremented});
+}
+
+
+var imgref1 = database1_database.ref(num1+'/Location');
+var imgref2 = database1_database.ref(num2+'/Location');
+var imgref1_name = database1_database.ref(num1+'/Name');
+var imgref2_name = database1_database.ref(num2+'/Name');
+
+
+imgref1.on('value',
+                function(snapshot){
+
+                                        URLPath1 = snapshot.val();
+                                        console.log(URLPath1);
+                                        console.log(snapshot.val());
+
+                                        document.getElementById("imgtag1").src = URLPath1;
+                                        document.getElementById("nrank").innerText = 'Rank '+num1;
+                                        if(num1 < num2)
+                                        {
+                                            document.getElementById("imgtag3").src = URLPath1;
+                                            //console.log("asdjfgashd "+nscoreincremented);
+                                           // database2_database.ref('Niyant').set({Score: nscoreincremented});
+                                            //console.log("nscore incremented"+(nscore+1));
+                                            //database2_database.ref('Niyant').set({Score: (parseInt(nscore) + 1)});
+
+                                        }
+
+                                   }
+        );
+
+imgref2.on('value',
+                function(snapshot){
+                                        //console.log(snapshot.val());
+                                        URLPath2 = snapshot.val();
+                                        console.log(URLPath2);
+                                        //console.log(snapshot.val());
+
+                                         document.getElementById("imgtag2").src = URLPath2;
+                                         document.getElementById("vrank").innerText = 'Rank '+num2;
+                                         if(num2 < num1)
+                                        {
+                                            document.getElementById("imgtag3").src = URLPath2;
+                                            //database2_database.ref('Varun').set({Score: vscoreincremented});
+
+                                            //console.log("vscore incremented"+(vscore+1));
+                                           // database2_database.ref('Varun').set({Score: (parseInt(vscore) + 1) });
+                                        }
+                                  }
+
+        );
+
+imgref1_name.on('value',
+                function(snapshot){
+
+                                        URLPath1_name = snapshot.val();
+                                        console.log(URLPath1_name);
+                                        console.log(snapshot.val());
+
+                                        document.getElementById("ns").innerText = URLPath1_name;
+
+
+                                   }
+        );
+
+imgref2_name.on('value',
+                function(snapshot){
+
+                                        URLPath2_name = snapshot.val();
+                                        console.log(URLPath2_name);
+
+
+                                         document.getElementById("vs").innerText = URLPath2_name;
+
+                                   }
+        );
+
+
+    </script>
+
+
+
+    </body>
+    </html>
