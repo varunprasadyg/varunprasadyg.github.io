@@ -4,6 +4,10 @@
     <title>
     Firebase Test
     </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <style>
     .alright
@@ -26,27 +30,30 @@
 }
     </style>
     <body>
-
+<div class="container">
 
 <input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()">
 
-<table class="alright">
+<table class="table table-bordered">
+
 <tr>
 <th><h1>Niyant</h1></th>
 <th><h1>Varun</h1></th>
 </tr>
 
-<!--<tr>
-<th><h1 id="niyantscoretag"></h1></th>
-<th><h1 id="varunscoretag"></h1></th>
-</tr>-->
 <tr>
-<td><h2 id="ns">0</td>
-<td><h2 id="vs">0</td>
+<td><h2 id="niyant_score"></h2></td>
+<td><h2 id="varun_score"></h2></td>
+</tr>
+
+
+<tr>
+<td><h2 id="ns">0</h2></td>
+<td><h2 id="vs">0</h2></td>
 </tr>
 <tr>
-<td><h3 id="nrank">0</td>
-<td><h3 id="vrank">0</td>
+<td><h3 id="nrank">0</h3></td>
+<td><h3 id="vrank">0</h3></td>
 </tr>
 <tr>
 <td><img id="imgtag1"/></td>
@@ -58,17 +65,8 @@
 </tr>
 </table>
 
-<table class="alright">
-<tr>
-<th><h1>Niyant</h1></th>
-<th><h1>Varun</h1></th>
-</tr>
-<tr>
-<td><h2 id="niyant_score"></h2></td>
-<td><h2 id="varun_score"></h2></td>
-</tr>
-</table>
 
+</div>
 
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
@@ -224,7 +222,7 @@ nvv.on('value',
                                        // console.log(URLPath1_name);
                                         //console.log('sdfsdf'+snapshot.val().Score);
                                         
-                                        document.getElementById("niyant_score").innerText = snapshot.val().Score;
+                                        document.getElementById("niyant_score").innerText = 'Score = '+snapshot.val().Score;
 
 
                                    }
@@ -237,7 +235,7 @@ vvv.on('value',
                                         //console.log(URLPath2_name);
 
                                         //console.log('sdfsdfsdf'+snapshot.val().Score);
-                                        document.getElementById("varun_score").innerText = snapshot.val().Score;
+                                        document.getElementById("varun_score").innerText = 'Score = '+snapshot.val().Score;
 
 
                                    }
