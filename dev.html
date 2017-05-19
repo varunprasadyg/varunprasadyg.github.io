@@ -31,20 +31,28 @@
 {
    font-family: 'Chewy', cursive; 
    font-size: 95px;
+   color: #9999ff;
 }
 .rfon
 {
    font-family: 'Italianno', cursive; 
-   /** font-size: 95px;**/
+   font-size: 33px;
 }
 .namefon
 {
     font-family: 'Freckle Face', cursive;
+    font-size: 40px;
+    color:#b30086;
 }
 .shufflebutton
 {
     font-family: 'Itim', cursive;
     font-size: 30px;
+    border-radius: 25px;
+}
+.score
+{
+    color: #000066;
 }
 body
 {
@@ -65,8 +73,8 @@ body
 </tr>
 
 <tr>
-<td><h2 id="niyant_score"></h2></td>
-<td><h2 id="varun_score"></h2></td>
+<td><h2 id="niyant_score" class="score"></h2></td>
+<td><h2 id="varun_score" class="score"></h2></td>
 <td><button type="button" class="btn btn-success btn-block shufflebutton" onClick="window.location.reload()">TRY AGAIN</button></td>
 </tr>
 
@@ -75,12 +83,13 @@ body
 <tr>
 <td><h2 id="ns" class="namefon">0</h2></td>
 <td><h2 id="vs" class="namefon">0</h2></td>
+<td><button type="button" class="btn btn-danger btn-block shufflebutton" onClick="alert('Reset Process');">RESET SCORES</button></td>
 <td></td>
 </tr>
 
 <tr>
-<td><h4 id="nrank" class="rfon">0</h4></td>
-<td><h4 id="vrank" class="rfon">0</h4></td>
+<td><h2 id="nrank" class="rfon">0</h4></td>
+<td><h2 id="vrank" class="rfon">0</h4></td>
 <td></td>
 </tr>
 
