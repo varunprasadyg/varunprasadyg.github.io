@@ -76,7 +76,7 @@ body
 <tr>
 <td><h2 id="niyant_score" class="score"></h2></td>
 <td><h2 id="varun_score" class="score"></h2></td>
-<td><button type="button" class="btn btn-success btn-block shufflebutton" onClick="window.location.reload()">TRY AGAIN</button></td>
+<td><button type="button" class="btn btn-success btn-block shufflebutton" onClick="window.location.reload();">TRY AGAIN</button></td>
 </tr>
 
 <!-- <input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()"> -->
@@ -84,7 +84,7 @@ body
 <tr>
 <td><h2 id="ns" class="namefon">0</h2></td>
 <td><h2 id="vs" class="namefon">0</h2></td>
-<td><button type="button" class="btn btn-danger btn-block shufflebutton" onClick="alert('Reset Process');">RESET SCORES</button></td>
+<td><button type="button" class="btn btn-danger btn-block shufflebutton" onClick="reset_scores();">RESET SCORES</button></td>
 <td></td>
 </tr>
 
@@ -279,6 +279,47 @@ vvv.on('value',
         );
 
 
+    </script>
+    <script>
+    function reset_scores()
+    {
+
+        var checkcode = prompt("Enter Password :");
+        if(checkcode === "Niyant")
+        {
+            database2_database.ref('Niyant/').transaction(
+                        function(post)
+                        {
+
+                            if(post)
+                            {
+                                post.Score = 0;
+                               
+                            }
+                            return post;
+                        }
+
+
+
+                );
+
+            database2_database.ref('Varun/').transaction(
+                        function(post)
+                        {
+
+                            if(post)
+                            {
+                                post.Score = 0;
+                                
+                            }
+                            return post;
+                        }
+
+
+
+            );
+        }
+    }
     </script>
 
 
