@@ -1,0 +1,252 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>
+    Firebase Test
+    </title>
+    </head>
+    <style>
+    .alright
+    {
+        text-align: left;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .button {
+	    background-color: #4CAF50;
+	    border: none;
+	    color: white;
+	    padding: 15px 32px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+}
+    </style>
+    <body>
+
+
+<input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()">
+
+<table class="alright">
+<tr>
+<th><h1>Niyant</h1></th>
+<th><h1>Varun</h1></th>
+</tr>
+
+<!--<tr>
+<th><h1 id="niyantscoretag"></h1></th>
+<th><h1 id="varunscoretag"></h1></th>
+</tr>-->
+<tr>
+<td><h2 id="ns">0</td>
+<td><h2 id="vs">0</td>
+</tr>
+<tr>
+<td><h3 id="nrank">0</td>
+<td><h3 id="vrank">0</td>
+</tr>
+<tr>
+<td><img id="imgtag1"/></td>
+<td><img id="imgtag2"/></td>
+</tr>
+<tr>
+<td><h2>Winner is</h2></td>
+<td><img id="imgtag3"/></td>
+</tr>
+</table>
+
+<table class="alright">
+<tr>
+<th><h1>Niyant</h1></th>
+<th><h1>Varun</h1></th>
+</tr>
+<tr>
+<td><h2 id="niyant_score"></h2></td>
+<td><h2 id="varun_score"></h2></td>
+</tr>
+</table>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+
+      var config = {
+        apiKey: "AIzaSyAXpEHm1uLfRLS-6QCun1iVioquEmpmbAI",
+        authDomain: "helloworld-3c2e7.firebaseapp.com",
+        databaseURL: "https://helloworld-3c2e7.firebaseio.com",
+        projectId: "helloworld-3c2e7",
+        storageBucket: "helloworld-3c2e7.appspot.com",
+        messagingSenderId: "103101977379"
+      };
+      firebase.initializeApp(config);
+
+      var otherAppConfig = {
+
+    apiKey: "AIzaSyDTIy0jyXBL_JV8rxNQtfXB-ggbfh1kPao",
+    authDomain: "scoring-ff94a.firebaseapp.com",
+    databaseURL: "https://scoring-ff94a.firebaseio.com",
+    projectId: "scoring-ff94a",
+    storageBucket: "scoring-ff94a.appspot.com",
+    messagingSenderId: "506688213268"
+
+};
+
+var database1 = firebase.initializeApp(config,"primary");
+var database1_database = database1.database();
+
+var database2 = firebase.initializeApp(otherAppConfig, "secondary");
+var database2_database = database2.database();
+
+
+
+var URLPath1,URLPath2,nsv,vsv;
+
+
+var num1 = Math.floor(Math.random() * 200) + 1;
+var num2 = Math.floor(Math.random() * 200) + 1;
+
+if(num1 < num2)
+{
+       database2_database.ref('Niyant/').transaction(
+                        function(post)
+                        {
+
+                            if(post)
+                            {
+                                post.Score++;
+                               
+                            }
+                            return post;
+                        }
+
+
+
+    );
+}
+else if(num1 > num2)
+{
+        database2_database.ref('Varun/').transaction(
+                        function(post)
+                        {
+
+                            if(post)
+                            {
+                                post.Score++;
+                                
+                            }
+                            return post;
+                        }
+
+
+
+    );
+}
+
+
+var imgref1 = database1_database.ref(num1+'/Location');
+var imgref2 = database1_database.ref(num2+'/Location');
+var imgref1_name = database1_database.ref(num1+'/Name');
+var imgref2_name = database1_database.ref(num2+'/Name');
+
+
+imgref1.on('value',
+                function(snapshot){
+
+                                        URLPath1 = snapshot.val();
+                                        console.log(URLPath1);
+                                        console.log(snapshot.val());
+
+                                        document.getElementById("imgtag1").src = URLPath1;
+                                        document.getElementById("nrank").innerText = 'Rank '+num1;
+                                        if(num1 < num2)
+                                        {
+                                            document.getElementById("imgtag3").src = URLPath1;
+
+
+                                        }
+
+                                   }
+        );
+
+imgref2.on('value',
+                function(snapshot){
+                                        //console.log(snapshot.val());
+                                        URLPath2 = snapshot.val();
+                                        console.log(URLPath2);
+                                        //console.log(snapshot.val());
+
+                                         document.getElementById("imgtag2").src = URLPath2;
+                                         document.getElementById("vrank").innerText = 'Rank '+num2;
+                                         if(num2 < num1)
+                                        {
+                                            document.getElementById("imgtag3").src = URLPath2;
+
+                                        }
+                                  }
+
+        );
+
+imgref1_name.on('value',
+                function(snapshot){
+
+                                        URLPath1_name = snapshot.val();
+                                        console.log(URLPath1_name);
+                                        console.log(snapshot.val());
+
+                                        document.getElementById("ns").innerText = URLPath1_name;
+
+
+                                   }
+        );
+
+imgref2_name.on('value',
+                function(snapshot){
+
+                                        URLPath2_name = snapshot.val();
+                                        console.log(URLPath2_name);
+
+
+                                         document.getElementById("vs").innerText = URLPath2_name;
+
+                                   }
+        );
+
+var nvv = database2_database.ref('Niyant/');
+var vvv = database2_database.ref('Varun/');
+
+nvv.on('value',
+                function(snapshot){
+
+                                       // URLPath1_name = snapshot.val();
+                                       // console.log(URLPath1_name);
+                                        //console.log('sdfsdf'+snapshot.val().Score);
+                                        
+                                        document.getElementById("niyant_score").innerText = snapshot.val().Score;
+
+
+                                   }
+        );
+
+vvv.on('value',
+                function(snapshot){
+
+                                        //URLPath2_name = snapshot.val();
+                                        //console.log(URLPath2_name);
+
+                                        //console.log('sdfsdfsdf'+snapshot.val().Score);
+                                        document.getElementById("varun_score").innerText = snapshot.val().Score;
+
+
+                                   }
+        );
+
+
+    </script>
+
+
+
+    </body>
+    </html>
