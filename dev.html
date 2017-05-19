@@ -8,8 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <style>
+        <link href="https://fonts.googleapis.com/css?family=Bad+Script|Chewy|Freckle+Face|Italianno|Itim|Niconne" rel="stylesheet">    <style>
     .alright
     {
         text-align: left;
@@ -28,41 +27,69 @@
 	    margin: 4px 2px;
 	    cursor: pointer;
 }
+.gfon
+{
+   font-family: 'Chewy', cursive; 
+   font-size: 95px;
+}
+.rfon
+{
+   font-family: 'Italianno', cursive; 
+   /** font-size: 95px;**/
+}
+.namefon
+{
+    font-family: 'Freckle Face', cursive;
+}
+.shufflebutton
+{
+    font-family: 'Itim', cursive;
+    font-size: 30px;
+}
+body
+{
+    background-image: url("");
+}
     </style>
     <body>
 <div class="container">
 
-<input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()">
+
 
 <table class="table table-bordered">
 
 <tr>
-<th><h1>Niyant</h1></th>
-<th><h1>Varun</h1></th>
+<th><h1 class="gfon">Niyant</h1></th>
+<th><h1 class="gfon">Varun</h1></th>
+<th><h1 class="gfon">Winner</h1></th>
 </tr>
 
 <tr>
 <td><h2 id="niyant_score"></h2></td>
 <td><h2 id="varun_score"></h2></td>
+<td><button type="button" class="btn btn-success btn-block shufflebutton" onClick="window.location.reload()">TRY AGAIN</button></td>
 </tr>
 
+<!-- <input class="button" type="button" value="SHUFFLE" onClick="window.location.reload()"> -->
 
 <tr>
-<td><h2 id="ns">0</h2></td>
-<td><h2 id="vs">0</h2></td>
+<td><h2 id="ns" class="namefon">0</h2></td>
+<td><h2 id="vs" class="namefon">0</h2></td>
+<td></td>
 </tr>
+
 <tr>
-<td><h3 id="nrank">0</h3></td>
-<td><h3 id="vrank">0</h3></td>
+<td><h4 id="nrank" class="rfon">0</h4></td>
+<td><h4 id="vrank" class="rfon">0</h4></td>
+<td></td>
 </tr>
+
 <tr>
 <td><img id="imgtag1"/></td>
 <td><img id="imgtag2"/></td>
-</tr>
-<tr>
-<td><h2>Winner is</h2></td>
 <td><img id="imgtag3"/></td>
 </tr>
+
 </table>
 
 
